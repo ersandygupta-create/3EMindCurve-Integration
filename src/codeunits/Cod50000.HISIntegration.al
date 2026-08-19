@@ -642,6 +642,7 @@ codeunit 50000 "3E HIS Integration Mgmt."
         intLineNo: Integer;
         MOPLbl: Label 'Item Mapping Setup not found for Item Category %1.';
         DocumentTypeLbl: Label 'Setup not found for Entry No. %1.';
+        ItemCatError: Label 'Setup Not found for Item Category code %1.';
 
     begin
         IntegrationSetup.GET();
@@ -695,12 +696,12 @@ codeunit 50000 "3E HIS Integration Mgmt."
                 GenJournalLine.VALIDATE(Amount, HISConsumptionEntry.Amount);
                 GenJournalLine.VALIDATE("Bal. Account Type", GenJournalLine."Bal. Account Type"::"G/L Account");
                 HISGLAccountMapping.Reset();
-                HISGLAccountMapping.SetRange("Entry Type", HISGLAccountMapping."Entry Type"::"Purchase Order");
+                HISGLAccountMapping.SetRange("Entry Type", HISGLAccountMapping."Entry Type"::Consumption);
                 HISGLAccountMapping.SetRange("Item Category Code", HISConsumptionEntry."Item Category Code");
                 if HISGLAccountMapping.FindFirst() then
                     GenJournalLine.VALIDATE("Bal. Account No.", HISGLAccountMapping."G/L Account No.")
                 ELSE
-                    Error(DocumentTypeLbl, HISRevenueStaging."HIS Document Type");
+                    Error(ItemCatError, HISConsumptionEntry."Item Category Code");
 
                 if HISConsumptionEntry."Shortcut Dimension 1 Code" <> '' then begin
                     //GenJournalLine.VALIDATE("Location Code", HISConsumptionEntry."Shortcut Dimension 1 Code");
@@ -1122,7 +1123,7 @@ codeunit 50000 "3E HIS Integration Mgmt."
                     PurchLine.VALIDATE("Document Type", PurchHeader."Document Type");
                     PurchLine."Document No." := PurchHeader."No.";
                     PurchLine.VALIDATE("Line No.", LineNo);
-                    PurchLine.VALIDATE(Type, HISPurchaseSaleLine."Item Type");
+                    PurchLine.VALIDATE(Type, HISPurchaseSaleLine."Item Type"::"G/L Account");
                     IntegrationSetup.Get();
                     IF IntegrationSetup."GRN Item Wise/ Account Wise" = IntegrationSetup."GRN Item Wise/ Account Wise"::"G/L Account" then
                         PurchLine.VALIDATE("No.", HISPurchaseSaleLine."Purchase Account")
