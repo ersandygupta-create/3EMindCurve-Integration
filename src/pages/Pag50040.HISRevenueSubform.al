@@ -69,6 +69,12 @@ page 50040 "3E HIS Revenue Subform"
                     Visible = false;
                     Caption = 'Entry No.';
                 }
+                field("Account Type"; Rec."Account Type")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Account Type';
+                    ToolTip = 'Specifies the value of the Account Type field.';
+                }
 
                 field("Account No."; Rec."Account No.")
                 {

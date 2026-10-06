@@ -175,8 +175,8 @@ table 50012 "3E HIS Revenue Line"
         {
             Caption = 'Account No.';
             DataClassification = ToBeClassified;
-            TableRelation = IF ("Account Type" = const(" ")) "Standard Text"
-            ELSE
+            TableRelation = //IF ("Account Type" = const(" ")) "Standard Text"
+            // ELSE
             IF ("Account Type" = CONST("G/L Account")) "G/L Account"
             ELSE
             IF ("Account Type" = CONST(Resource)) Resource

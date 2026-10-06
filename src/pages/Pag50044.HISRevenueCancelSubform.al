@@ -88,6 +88,13 @@ page 50044 "3E HIS Revenue Cancel Subform"
                     Caption = 'Location Code';
                     //Editable = false;
                 }
+                field("Account Type"; Rec."Account Type")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Account Type';
+                    ToolTip = 'Specifies the value of the Account Type field.';
+                }
+
                 field("Account No."; Rec."Account No.")
                 {
                     ApplicationArea = All;
